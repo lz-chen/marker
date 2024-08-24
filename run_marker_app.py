@@ -15,6 +15,11 @@ def home():
 def convert():
     logging.info("Received request to /convert")
     file = request.files['file']
+    max_pages = request.form.get('max_pages', type=int)
+    langs = request.form.getlist('langs')
+    batch_multiplier = request.form.get('batch_multiplier', default=1, type=int)
+    start_page = request.form.get('start_page', default=0, type=int)
+
     model_lst = load_all_models()
     logging.info(f"Loaded models: {model_lst}")
     with tempfile.NamedTemporaryFile(suffix=".pdf") as temp_pdf:
