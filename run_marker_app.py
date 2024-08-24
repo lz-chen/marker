@@ -26,6 +26,7 @@ def convert():
     model_lst = load_all_models()
     logging.info(f"Loaded models: {model_lst}")
     logging.info(f"Starting PDF conversion with file: {file.filename}")
+    logging.info(f"Processing PDF file: {file.filename}")
     logging.info(f"Model list: {model_lst}")
     with tempfile.NamedTemporaryFile(suffix=".pdf") as temp_pdf:
         temp_pdf.write(file.read())
