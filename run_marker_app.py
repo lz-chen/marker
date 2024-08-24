@@ -18,7 +18,9 @@ def convert():
         full_text, images, out_meta = convert_single_pdf(temp_pdf.name, [], None, False)
     return jsonify({"text": full_text, "metadata": out_meta})
 
-def run_app():
+@app.route('/favicon.ico')
+def favicon():
+    return '', 204
     app.run(host='0.0.0.0', port=8501)
 
 
