@@ -18,7 +18,7 @@ def convert():
     max_pages = request.form.get('max_pages', default=None, type=int)
     langs = request.form.getlist('langs', default=["English"])
     batch_multiplier = request.form.get('batch_multiplier', default=1, type=int)
-    start_page = request.form.get('start_page', default=0, type=int)
+    start_page = request.form.get('start_page', default=None, type=int)
 
     model_lst = load_all_models()
     logging.info(f"Loaded models: {model_lst}")
