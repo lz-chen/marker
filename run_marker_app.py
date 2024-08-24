@@ -27,6 +27,7 @@ def convert():
     logging.info(f"Loaded models: {model_lst}")
     logging.info(f"Starting PDF conversion with file: {file.filename}")
     logging.info(f"Model list: {model_lst}")
+    with tempfile.NamedTemporaryFile(suffix=".pdf") as temp_pdf:
         temp_pdf.write(file.read())
         temp_pdf.seek(0)
         logging.info("Temporary PDF file created, starting conversion process.")
