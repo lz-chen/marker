@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 import tempfile
 from marker.convert import convert_single_pdf
+from marker.models import load_all_models
 
 app = Flask(__name__)
 
@@ -11,6 +12,7 @@ def home():
 @app.route('/convert', methods=['POST'])
 def convert():
     file = request.files['file']
+    model_lst = load_all_models()
     with tempfile.NamedTemporaryFile(suffix=".pdf") as temp_pdf:
         temp_pdf.write(file.read())
         temp_pdf.seek(0)
