@@ -25,12 +25,13 @@ def convert():
     logging.info(f"Request parameters - max_pages: {max_pages}, langs: {langs}, batch_multiplier: {batch_multiplier}, start_page: {start_page}")
     model_lst = load_all_models()
     logging.info(f"Loaded models: {model_lst}")
-    with tempfile.NamedTemporaryFile(suffix=".pdf") as temp_pdf:
+    logging.info(f"Starting PDF conversion with file: {file.filename}")
+    logging.info(f"Model list: {model_lst}")
         temp_pdf.write(file.read())
         temp_pdf.seek(0)
-        # Assuming convert_single_pdf is the function to convert PDF to markdown
+        logging.info("Temporary PDF file created, starting conversion process.")
         full_text, images, out_meta = convert_single_pdf(temp_pdf.name, model_lst, max_pages=max_pages, langs=langs, batch_multiplier=batch_multiplier, start_page=start_page)
-    logging.info("Conversion successful")
+    logging.info("Conversion successful, returning results.")
     return jsonify({"text": full_text, "metadata": out_meta})
 
 @app.route('/favicon.ico')
