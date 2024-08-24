@@ -23,7 +23,7 @@ def convert():
     start_page = request.form.get('start_page', default=None, type=int)
 
     logging.info(f"Request parameters - max_pages: {max_pages}, langs: {langs}, batch_multiplier: {batch_multiplier}, start_page: {start_page}")
-    model_lst = []
+    model_lst = load_all_models()
     logging.info(f"Loaded models: {model_lst}")
     with tempfile.NamedTemporaryFile(suffix=".pdf") as temp_pdf:
         temp_pdf.write(file.read())
