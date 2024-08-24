@@ -15,8 +15,8 @@ def home():
 def convert():
     logging.info("Received request to /convert")
     file = request.files['file']
-    max_pages = request.form.get('max_pages', type=int)
-    langs = request.form.getlist('langs')
+    max_pages = request.form.get('max_pages', default=None, type=int)
+    langs = request.form.getlist('langs', default=["English"])
     batch_multiplier = request.form.get('batch_multiplier', default=1, type=int)
     start_page = request.form.get('start_page', default=0, type=int)
 

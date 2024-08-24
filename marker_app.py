@@ -85,8 +85,8 @@ Find the project [here](https://github.com/VikParuchuri/marker).
 """)
 
 in_file = st.sidebar.file_uploader("PDF file:", type=["pdf"])
-languages = st.sidebar.multiselect("Languages", sorted(list(CODE_TO_LANGUAGE.values())), default=[], max_selections=4, help="Select the languages in the pdf (if known) to improve OCR accuracy.  Optional.")
-max_pages = st.sidebar.number_input("Max pages to parse", min_value=1, value=10, help="Optional maximum number of pages to convert")
+languages = st.sidebar.multiselect("Languages", sorted(list(CODE_TO_LANGUAGE.values())), default=["English"], max_selections=4, help="Select the languages in the pdf (if known) to improve OCR accuracy.  Optional.")
+max_pages = st.sidebar.number_input("Max pages to parse", min_value=1, value=None, help="Optional maximum number of pages to convert")
 ocr_all_pages = st.sidebar.checkbox("Force OCR on all pages", help="Force OCR on all pages, even if they are images", value=False)
 
 if in_file is None:
