@@ -21,7 +21,7 @@ def convert():
         temp_pdf.write(file.read())
         temp_pdf.seek(0)
         # Assuming convert_single_pdf is the function to convert PDF to markdown
-        full_text, images, out_meta = convert_single_pdf(temp_pdf.name, [], None, False)
+        full_text, images, out_meta = convert_single_pdf(temp_pdf.name, model_lst, max_pages=max_pages, langs=langs, batch_multiplier=batch_multiplier, start_page=start_page)
     logging.info("Conversion successful")
     return jsonify({"text": full_text, "metadata": out_meta})
 
