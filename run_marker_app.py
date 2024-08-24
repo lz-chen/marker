@@ -4,13 +4,9 @@ import os
 
 
 def run_app():
-    cur_dir = os.path.dirname(os.path.abspath(__file__))
-    app_path = os.path.join(cur_dir, "marker_app.py")
-    cmd = ["streamlit", "run", app_path]
-    try:
-        subprocess.run(cmd, env={**os.environ, "IN_STREAMLIT": "true"}, check=True)
-    except subprocess.CalledProcessError as e:
-        print(f"Error running the app: {e}")
+    # Implement the service logic here
+    print("Running marker service...")
+    # Add the necessary code to start your service
 
 
 if __name__ == "__main__":
