@@ -23,4 +23,4 @@ COPY . /app
 EXPOSE 8501
 
 # Run the application using Gunicorn
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8501", "run_marker_app:app"]
+CMD ["gunicorn", "-w", "2", "-b", "0.0.0.0:8501", "run_marker_app:app"]
