@@ -1,6 +1,13 @@
-import argparse
-import subprocess
-import os
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return jsonify({"message": "Marker service is running!"})
+
+def run_app():
+    app.run(host='0.0.0.0', port=8501)
 
 
 def run_app():
