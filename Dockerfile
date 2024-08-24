@@ -20,7 +20,7 @@ RUN poetry config virtualenvs.create false && poetry install --no-dev
 COPY . /app
 
 # Make port 8501 available to the world outside this container
-EXPOSE 8501
+EXPOSE 8000
 
 # Run the application using Gunicorn
-CMD ["gunicorn", "-w", "2", "-b", "0.0.0.0:8501", "run_marker_app:app"]
+CMD ["gunicorn", "-w", "2", "-b", "0.0.0.0:8000", "run_marker_app:app"]

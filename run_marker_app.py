@@ -28,8 +28,8 @@ def convert():
 def favicon():
     return '', 204
     logging.info("Starting Flask application")
-    app.run(host='0.0.0.0', port=8501, threaded=True)
+    app.run(host='0.0.0.0', port=8000, threaded=True)
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8501)
+    app.run(host='0.0.0.0', port=8000)
