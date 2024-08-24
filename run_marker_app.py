@@ -22,7 +22,8 @@ def convert():
     batch_multiplier = request.form.get('batch_multiplier', default=1, type=int)
     start_page = request.form.get('start_page', default=None, type=int)
 
-    model_lst = load_all_models()
+    # model_lst = load_all_models()
+    model_lst = []
     logging.info(f"Loaded models: {model_lst}")
     with tempfile.NamedTemporaryFile(suffix=".pdf") as temp_pdf:
         temp_pdf.write(file.read())
