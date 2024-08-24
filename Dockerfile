@@ -4,12 +4,8 @@ FROM python:3.12-slim
 # Set the working directory in the container
 WORKDIR /app
 
-# Install system dependencies and create a swap file
-RUN apt-get update && apt-get install -y libgl1 libglib2.0-0 && \
-    fallocate -l 1G /swapfile && \
-    chmod 600 /swapfile && \
-    mkswap /swapfile && \
-    swapon /swapfile
+# Install system dependencies
+RUN apt-get update && apt-get install -y libgl1 libglib2.0-0
 
 # Install Poetry globally
 RUN pip install poetry
