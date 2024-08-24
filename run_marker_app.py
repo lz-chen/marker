@@ -16,6 +16,7 @@ def convert():
     logging.info("Received request to /convert")
     file = request.files['file']
     model_lst = load_all_models()
+    logging.info(f"Loaded models: {model_lst}")
     with tempfile.NamedTemporaryFile(suffix=".pdf") as temp_pdf:
         temp_pdf.write(file.read())
         temp_pdf.seek(0)
