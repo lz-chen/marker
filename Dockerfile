@@ -19,5 +19,5 @@ COPY . /app
 # Make port 8501 available to the world outside this container
 EXPOSE 8501
 
-# Run the application
-CMD ["streamlit", "run", "run_marker_app.py"]
+# Run the application as a service
+CMD ["python", "run_marker_app.py"]
