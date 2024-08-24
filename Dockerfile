@@ -23,4 +23,4 @@ COPY . /app
 EXPOSE 8000
 
 # Run the application using Gunicorn
-CMD ["gunicorn", "-w", "2", "-b", "0.0.0.0:8000", "--timeout", "120", "run_marker_app:app"]
+CMD ["gunicorn", "-w", "2", "-b", "0.0.0.0:8000", "--timeout", "300", "run_marker_app:app"]
