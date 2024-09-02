@@ -1,4 +1,5 @@
 import logging
+import psutil
 from flask import Flask, jsonify, request
 import tempfile
 from marker.convert import convert_single_pdf
@@ -25,6 +26,9 @@ def convert():
     logging.info(f"Request parameters - max_pages: {max_pages}, langs: {langs}, batch_multiplier: {batch_multiplier}, start_page: {start_page}")
     model_lst = load_all_models()
     logging.info(f"Loaded models: {model_lst}")
+    process = psutil.Process()
+    mem_before = process.memory_info().rss / (1024 * 1024)  # Memory in MB
+    logging.info(f"Memory usage before conversion: {mem_before:.2f} MB")
     logging.info(f"Starting PDF conversion with file: {file.filename}")
     logging.info(f"Processing PDF file: {file.filename}")
     logging.info(f"Model list: {model_lst}")
@@ -33,6 +37,8 @@ def convert():
         temp_pdf.seek(0)
         logging.info("Temporary PDF file created, starting conversion process.")
         full_text, images, out_meta = convert_single_pdf(temp_pdf.name, model_lst, max_pages=max_pages, langs=langs, batch_multiplier=batch_multiplier, start_page=start_page)
+    mem_after = process.memory_info().rss / (1024 * 1024)  # Memory in MB
+    logging.info(f"Memory usage after conversion: {mem_after:.2f} MB")
     logging.info("Conversion successful, returning results.")
     return jsonify({"text": full_text, "metadata": out_meta})
 
