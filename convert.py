@@ -6,6 +6,7 @@ os.environ["PDFTEXT_CPU_WORKERS"] = "1" # Avoid multiprocessing inside pdftext
 
 import pypdfium2 # Needs to be at the top to avoid warnings
 import argparse
+import psutil
 import torch.multiprocessing as mp
 from tqdm import tqdm
 import math
@@ -56,7 +57,14 @@ def process_single_pdf(args):
             if length < min_length:
                 return
 
+        process = psutil.Process()
+        mem_before = process.memory_info().rss / (1024 * 1024)  # Memory in MB
+        print(f"Memory usage before processing {fname}: {mem_before:.2f} MB")
+
         full_text, images, out_metadata = convert_single_pdf(filepath, model_refs, metadata=metadata)
+
+        mem_after = process.memory_info().rss / (1024 * 1024)  # Memory in MB
+        print(f"Memory usage after processing {fname}: {mem_after:.2f} MB")
         if len(full_text.strip()) > 0:
             save_markdown(out_folder, fname, full_text, images, out_metadata)
         else:
