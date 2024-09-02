@@ -5,10 +5,13 @@ FROM python:3.12-slim
 WORKDIR /app
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y libgl1 libglib2.0-0
+RUN apt-get update && apt-get install -y libgl1 libglib2.0-0 gcc python3-dev
 
 # Install Poetry and Gunicorn globally
 RUN pip install poetry gunicorn
+
+# Install psutil using pip to avoid PEP 517 build issues
+RUN pip install psutil==5.9.8
 
 # Copy only the necessary files for installing dependencies
 COPY pyproject.toml /app/
@@ -23,4 +26,4 @@ COPY . /app
 EXPOSE 8000
 
 # Run the application using Gunicorn
-CMD ["gunicorn", "-w", "1", "--threads", "4", "-b", "0.0.0.0:8000", "--timeout", "300", "run_marker_app:app"]
+CMD ["gunicorn", "-w", "1", "--threads", "1", "-b", "0.0.0.0:8000", "--timeout", "300", "run_marker_app:app"]
