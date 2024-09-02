@@ -8,6 +8,7 @@ os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1" # For some reason, transformers 
 import pypdfium2 as pdfium # Needs to be at the top to avoid warnings
 from PIL import Image
 
+import psutil
 from marker.utils import flush_cuda_memory
 from marker.tables.table import format_tables
 from marker.debug.data import dump_bbox_debug_data
@@ -85,7 +86,9 @@ def convert_single_pdf(
     # Unpack models from list
     texify_model, layout_model, order_model, edit_model, detection_model, ocr_model = model_lst
 
-    # Identify text lines on pages
+    process = psutil.Process()
+    mem_before = process.memory_info().rss / (1024 * 1024)  # Memory in MB
+    print(f"Memory usage before processing {fname}: {mem_before:.2f} MB")
     surya_detection(doc, pages, detection_model, batch_multiplier=batch_multiplier)
     flush_cuda_memory()
 
@@ -169,5 +172,8 @@ def convert_single_pdf(
     flush_cuda_memory()
     out_meta["postprocess_stats"] = {"edit": edit_stats}
     doc_images = images_to_dict(pages)
+
+    mem_after = process.memory_info().rss / (1024 * 1024)  # Memory in MB
+    print(f"Memory usage after processing {fname}: {mem_after:.2f} MB")
 
     return full_text, doc_images, out_meta
